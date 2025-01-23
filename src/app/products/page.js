@@ -12,24 +12,18 @@ async function getStripeProducts() {
     return res.data;
   } catch (error) {
     console.error("Error fetching products:", error);
-    return []; // Return an empty array or handle as needed
+    return []; // Handle errors appropriately
   }
 }
-// export async function getServerSideProps() {
-//   const products = await getStripeProducts();
-//   return {
-//     props: { products }, // Pass products to the page component
-//   };
-// }
 
 export default async function Home() {
   const products = await getStripeProducts();
   return (
-    <main className=" flex flex-col bg-slate-200 ">
-      <div className=" w-full md:px-10 px-5 grid max-md:grid-cols-1 max-lg:grid-cols-2 lg:grid-cols-4 gap-10 py-10 ">
-        {products.map((product, productIndex) => {
-          return <ProductCard key={productIndex} product={product} />;
-        })}
+    <main className="flex flex-col bg-slate-200">
+      <div className="w-full md:px-10 px-5 grid max-md:grid-cols-1 max-lg:grid-cols-2 lg:grid-cols-4 gap-10 py-10">
+        {products.map((product, productIndex) => (
+          <ProductCard key={productIndex} product={product} />
+        ))}
       </div>
     </main>
   );

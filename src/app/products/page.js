@@ -3,7 +3,7 @@ import ProductCard from "../ProductCard";
 
 async function getStripeProducts() {
   try {
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+    const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_API_KEY, {
       apiVersion: "2024-04-10",
     });
     const res = await stripe.prices.list({

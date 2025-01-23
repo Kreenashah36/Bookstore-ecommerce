@@ -2,15 +2,25 @@ import Stripe from "stripe";
 import ProductCard from "../ProductCard";
 
 async function getStripeProducts() {
-  const stripe = new Stripe(process.env.STRIPE_SECRET, {
-    apiVersion: "2024-04-10",
-  });
-  const res = await stripe.prices.list({
-    expand: ["data.product"],
-  });
-  const prices = res.data;
-  return prices;
+  try {
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+      apiVersion: "2024-04-10",
+    });
+    const res = await stripe.prices.list({
+      expand: ["data.product"],
+    });
+    return res.data;
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    return []; // Return an empty array or handle as needed
+  }
 }
+// export async function getServerSideProps() {
+//   const products = await getStripeProducts();
+//   return {
+//     props: { products }, // Pass products to the page component
+//   };
+// }
 
 export default async function Home() {
   const products = await getStripeProducts();

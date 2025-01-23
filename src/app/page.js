@@ -3,7 +3,7 @@ import ProductCard from "./ProductCard";
 import HomeBanner from "./Banner";
 
 async function getStripeProducts() {
-  const stripe = new Stripe(process.env.STRIPE_SECRET ?? "", {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "", {
     apiVersion: "2024-04-10",
   });
   const res = await stripe.prices.list({
